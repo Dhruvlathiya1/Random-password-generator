@@ -2,11 +2,25 @@ document.addEventListener("DOMContentLoaded", function () {
  const len = document.getElementById("len");
  const gen =   document.getElementById("gen");
   const prag =  document.getElementById("prag");
+  const mess =  document.getElementById("mess");
+
+
+
 
     gen.addEventListener("click", function(event){
         event.preventDefault();
         prag.textContent = "";
-        let lenpass = parseInt(len.value);
+        let lenpass;
+        let errormess;
+        if (len.value > 16) {
+            alert("Max length 16")
+            
+        }else if (len.value == "" || len.value == 0) {
+           alert("Enter atleast 1 number");
+        }else{
+            lenpass = parseInt(len.value);
+        }
+        
         let includesmall = document.getElementById("sa").checked;
         let includelarge = document.getElementById("la").checked;
         let includenumber = document.getElementById("n").checked;
@@ -14,7 +28,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         let pag = document.createElement("p");
         pag.classList.add("p");
-        let pass = generator(lenpass, includesmall, includelarge, includenumber, includesymbols);
+        let pass;
+
+        if (!includesmall && !includelarge && !includenumber && !includesymbols) {
+           alert("Aleast select 1 checkbox");
+        }else{
+          pass  = generator(lenpass, includesmall, includelarge, includenumber, includesymbols);
+        }
+
+
         pag.textContent = pass;
         prag.appendChild(pag);
 
